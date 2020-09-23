@@ -37,11 +37,11 @@ pub fn load_map(world: &mut World, map_string: String) {
                     create_box(world, position, BoxColour::Red);
                 }
                 "BS" => {
-                    create_floor(world, position);
+                    create_box_spot_floor(world, position);
                     create_box_spot(world, position, BoxColour::Blue);
                 }
                 "RS" => {
-                    create_floor(world, position);
+                    create_box_spot_floor(world, position);
                     create_box_spot(world, position, BoxColour::Red);
                 }
                 "N" => (),

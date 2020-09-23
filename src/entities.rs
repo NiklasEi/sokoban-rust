@@ -20,14 +20,19 @@ pub fn create_floor(world: &mut World, position: Position) {
         .build();
 }
 
+pub fn create_box_spot_floor(world: &mut World, position: Position) {
+    world
+        .create_entity()
+        .with(Position { z: 5, ..position })
+        .with(Renderable::new_static("/images/box_spot_floor.png".to_string()))
+        .build();
+}
+
 pub fn create_box(world: &mut World, position: Position, colour: BoxColour) {
     world
         .create_entity()
         .with(Position { z: 10, ..position })
-        .with(Renderable::new_animated(vec![
-            format!("/images/box_{}_1.png", colour),
-            format!("/images/box_{}_2.png", colour),
-        ]))
+        .with(Renderable::new_static(format!("/images/box_{}.png", colour)))
         .with(Box { colour })
         .with(Movable)
         .build();
