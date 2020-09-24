@@ -53,12 +53,12 @@ impl RenderingSystem<'_> {
         renderable.path(path_index)
     }
 
-    pub fn load_image(&mut self, image_path: &str) -> Image {
-        if let Some(image) = self.image_cache.get(image_path) {
+    pub fn load_image(&mut self, image_path: String) -> Image {
+        if let Some(image) = self.image_cache.get(&image_path) {
             return image.clone();
         }
-        let image: Image = Image::new(self.context, image_path).expect("expected image");
-        self.image_cache.insert(String::from(image_path), image.clone());
+        let image: Image = Image::new(self.context, &image_path).expect("expected image");
+        self.image_cache.insert(image_path, image.clone());
         return image;
     }
 }
@@ -109,7 +109,7 @@ impl<'a> System<'a> for RenderingSystem<'a> {
             .sorted_by(|a, b| Ord::cmp(&a.0, &b.0))
         {
             for (image_path, draw_params) in group {
-                let image = self.load_image(image_path);
+                let image = self.load_image(image_path.to_string());
                 let mut sprite_batch = SpriteBatch::new(image);
 
                 for draw_param in draw_params.iter() {
